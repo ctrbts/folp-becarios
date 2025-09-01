@@ -1,16 +1,19 @@
 # config/settings.py
 
-from pathlib import Path
 import os
+from pathlib import Path
+from dotenv import load_dotenv
 import dj_database_url
 
-from dotenv import load_dotenv
-
-load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Carga el archivo .env
+load_dotenv(BASE_DIR / ".env")
+
+# Lee la variable DJANGO_ENV. Si no existe, asume que es 'development'.
+ENVIRONMENT = os.environ.get("DJANGO_ENV", "development")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -21,8 +24,11 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DJANGO_DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = [os.environ.get("DJANGO_ALLOWED_HOSTS", "127.0.0.1")]
-
+# En desarrollo, permitimos localhost. En producción, lee del .env.
+if ENVIRONMENT == "production":
+    ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "").split(",")
+else:
+    ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
 # Application definition
 
