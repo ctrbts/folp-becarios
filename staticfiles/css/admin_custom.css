@@ -1,0 +1,149 @@
+/* core/static/css/admin_custom.css - TEMA OSCURO */
+
+:root {
+    /* -- Paleta de Colores (Oscura) -- */
+    --primary-color: #00A18E;
+    /* Color institucional de acento */
+    --primary-color-dark: #007C6C;
+    /* Acento más oscuro para hover */
+    --body-bg: #1c1c1c;
+    /* Fondo principal muy oscuro */
+    --content-bg: #2a2a2a;
+    /* Fondo para módulos y tablas */
+    --header-bg: #2a2a2a;
+    /* Fondo de la cabecera */
+    --text-color: #e1e1e1;
+    /* Color de texto principal (casi blanco) */
+    --text-muted-color: #999;
+    /* Color de texto secundario */
+    --link-color: var(--primary-color);
+    /* Color de los enlaces */
+    --border-color: #444;
+    /* Color de los bordes */
+    --button-text-color: #ffffff;
+
+    /* -- Tipografía (la mantenemos) -- */
+    --font-size-base: 14px;
+    --font-size-h1: 24px;
+    --font-size-h2: 16px;
+}
+
+/* -- Aplicación de Estilos -- */
+body,
+#container {
+    background: var(--body-bg);
+    color: var(--text-color);
+    font-size: var(--font-size-base);
+}
+
+#header {
+    background: var(--header-bg);
+    color: var(--text-color);
+}
+
+#header a:link,
+#header a:visited {
+    color: var(--text-color);
+}
+
+#site-name {
+    font-size: var(--font-size-h1);
+}
+
+.module h2,
+.module caption,
+.inline-group h2 {
+    background: var(--content-bg);
+    color: var(--text-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.module {
+    background: var(--content-bg);
+    border: 1px solid var(--border-color);
+}
+
+table {
+    border: 1px solid var(--border-color);
+}
+
+th,
+td {
+    border-bottom: 1px solid var(--border-color);
+}
+
+thead th {
+    background: #333;
+}
+
+a {
+    color: var(--link-color);
+}
+
+a:hover {
+    color: var(--primary-color-dark);
+}
+
+.button,
+input[type=submit],
+input[type=button],
+.submit-row input,
+a.addlink {
+    background: var(--primary-color);
+    color: var(--button-text-color) !important;
+    font-size: var(--font-size-base);
+    padding: 8px 15px;
+    border-radius: 4px;
+    border: none;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.button:hover,
+input[type=submit]:hover,
+input[type=button]:hover,
+a.addlink:hover {
+    background: var(--primary-color-dark);
+}
+
+/* Estilos para formularios */
+input,
+select,
+textarea {
+    background-color: #333;
+    border: 1px solid #555;
+    color: var(--text-color);
+    border-radius: 4px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--primary-color);
+}
+
+/* Ajustes de colores específicos */
+.breadcrumbs {
+    background: #333;
+}
+
+.paginator {
+    background: var(--content-bg);
+}
+
+.paginator a:link,
+.paginator a:visited {
+    color: var(--link-color);
+}
+
+#changelist-filter {
+    background: var(--content-bg);
+    border: 1px solid var(--border-color);
+}
+
+#changelist-filter h2,
+#changelist-filter h3 {
+    background: #333;
+    color: var(--text-color);
+}

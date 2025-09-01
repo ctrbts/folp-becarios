@@ -1,0 +1,30 @@
+/* Define tu paleta de colores usando variables CSS */
+:root {
+    --primary-color: #00A18E;
+    /* rgb(0, 161, 142) */
+    --primary-color-light: #00C4AD;
+    --primary-color-dark: #007C6C;
+}
+
+/* Cambia los colores de la UI de Bootstrap que usa Jazzmin */
+.btn-primary,
+.page-item.active .page-link {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-color-dark) !important;
+    border-color: var(--primary-color-dark) !important;
+}
+
+a,
+a:hover,
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active,
+.sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {
+    background-color: var(--primary-color) !important;
+}

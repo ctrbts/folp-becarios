@@ -1,0 +1,101 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+
+<style>
+    /* Estilos para el formulario de reporte */
+    .report-form {
+        margin-top: 20px;
+        max-width: 600px;
+    }
+
+    .report-form .form-row {
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        /* Espacio entre label e input */
+    }
+
+    .report-form label {
+        font-weight: bold;
+        width: 120px;
+        /* Ancho fijo para alineación */
+    }
+
+    .report-form input[type="date"] {
+        padding: 8px 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    /* El botón ya tomará el estilo de 'admin_custom.css' si usamos la clase correcta */
+    /* Estilo principal del botón */
+    .btn-estilo-gris {
+        /* Colores */
+        background-color: #6c757d;
+        /* Un gris neutro y sólido */
+        color: white;
+        /* Color del texto */
+
+        /* Bordes y forma */
+        border: none;
+        /* Sin borde */
+        border-radius: 50px;
+        /* Esto crea las esquinas totalmente redondeadas (forma de píldora) */
+
+        /* Espaciado y tamaño */
+        padding: 6px 12px;
+        /* Espaciado interno (vertical y horizontal) */
+
+        /* Tipografía */
+        font-family: Arial, sans-serif;
+        /* Una fuente limpia y legible */
+        font-size: 10px;
+        /* Texto en negrita */
+        text-transform: uppercase;
+        /* Convierte el texto a mayúsculas */
+        letter-spacing: 0.5px;
+        /* Un ligero espacio extra entre letras */
+
+        /* Comportamiento */
+        cursor: pointer;
+        /* Muestra el cursor de "mano" al pasar por encima */
+        transition: background-color 0.2s ease-in-out;
+        /* Transición suave para el hover */
+    }
+
+    /* Efecto al pasar el mouse por encima */
+    .btn-estilo-gris:hover {
+        background-color: #2d2e30;
+        /* Un gris ligeramente más oscuro para dar feedback */
+    }
+
+    .plus-sign {
+        font-size: 12px;
+        margin-left: 8px;
+        font-weight: bold;
+    }
+</style>
+
+<h1>Generador de Reportes de Fichajes</h1>
+<p>Seleccione un rango de fechas para generar un informe detallado en formato CSV.</p>
+
+<form id="miFormulario" action="" method="post" class="report-form">
+    {% csrf_token %}
+    <div class="form-row">
+        <label for="start_date">Fecha de inicio:</label>
+        <input type="date" name="start_date" required>
+    </div>
+    <div class="form-row">
+        <label for="end_date">Fecha de fin:</label>
+        <input type="date" name="end_date" required>
+    </div>
+    <br>
+    <div>
+        <button type="submit" class="btn-estilo-gris">Exportar a CSV <span class="plus-sign">+</span>
+</button>
+    </div>
+</form>
+{% endblock %}
