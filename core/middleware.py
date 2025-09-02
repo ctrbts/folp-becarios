@@ -9,7 +9,7 @@ class IPRestrictionMiddleware:
         # --- CONFIGURACIÓN ---
         # Añade aquí la dirección IP estática de la PC de la mesa de entradas.
         # '127.0.0.1' es la IP local, necesaria para que puedas probarlo en tu computadora.
-        self.allowed_ips = ["127.0.0.1", "192.168.1.101"]  # ¡REEMPLAZAR con la IP real!
+        self.allowed_ips = ["127.0.0.1", "163.10.29.154"]  # ¡REEMPLAZAR con la IP real!
 
     def __call__(self, request):
         # Queremos aplicar esta restricción solo a la página de fichaje ('/').

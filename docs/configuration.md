@@ -1,12 +1,20 @@
+sudo -u postgres psql
+# Dentro de la consola de psql:
 CREATE DATABASE becarios_db;
 CREATE USER becarios_user WITH PASSWORD 'becarios_pasS';
 ALTER ROLE becarios_user SET client_encoding TO 'utf8';
 ALTER ROLE becarios_user SET default_transaction_isolation TO 'read committed';
-ALTER ROLE becarios_user SET timezone TO 'America/Argentina/Buenos_Aires';
+ALTER ROLE becarios_user SET timezone TO 'UTC';
+ALTER DATABASE becarios_db OWNER TO becarios_user;
 GRANT ALL PRIVILEGES ON DATABASE becarios_db TO becarios_user;
 \q
 
-ALTER DATABASE becarios_db OWNER TO becarios_user;
+
+DJANGO_SECRET_KEY='tu_clave_secreta_real_y_muy_larga_aqui'
+DJANGO_ENV='production'
+DJANGO_DEBUG=False
+DJANGO_ALLOWED_HOSTS='127.0.0.1,163.10.29.154'
+DATABASE_URL='postgres://becarios_user:becarios_pasS@localhost:5432/becarios_db'
 
 ---
 
@@ -43,7 +51,7 @@ WantedBy=multi-user.target
 
 server {
 listen 80; # Reemplaza esto con tu dominio o la IP de tu servidor
-server_name 163.10.29.152;
+server_name 163.10.29.154;
 
     # Sirve los archivos estáticos directamente
     location /static/ {
