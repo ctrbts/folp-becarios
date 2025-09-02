@@ -113,3 +113,9 @@ DJANGO_ALLOWED_HOSTS='tudominio.com,www.tudominio.com'
 # La URL de conexión a PostgreSQL
 
 DATABASE_URL='postgres://controlbecarios_user:una_contraseña_muy_segura@localhost:5432/controlbecarios_db'
+
+
+
+
+
+https://gemini.google.com/gem/b904ddf291c0/1f9716bfcbb287f9?hl=es_419
