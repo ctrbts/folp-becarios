@@ -4,167 +4,295 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Fichaje de Becarios</title>
+    <title>Asistencia de Becarios</title>
+    
+    <!-- Google Fonts para una tipografía más atractiva (opcional, se puede eliminar si no hay acceso a internet) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
+        /* Paleta de colores y variables */
         :root {
-            --color-primary: #00A18E;
-            /* rgb(0, 161, 142) */
-            --color-primary-light: #E6F6F4;
-            --color-success: #155724;
-            --bg-success: #d4edda;
-            --color-error: #721c24;
-            --bg-error: #f8d7da;
-            --color-warning: #856404;
-            --bg-warning: #fff3cd;
+            --color-primary: #007671;
+            --color-primary-hover: #005f5a;
+            --color-primary-light: rgba(0, 118, 113, 0.1);
         }
 
+        /* Estilos base y de layout */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f8fafc;
             display: flex;
-            justify-content: center;
             align-items: center;
-            min-height: 70vh;
-            background-color: #f3f4f6;
-            /* gris claro tipo Tailwind */
+            justify-content: center;
+            min-height: 75vh;
             margin: 0;
+            padding: 1rem;
+            box-sizing: border-box;
         }
 
         .container {
-            text-align: center;
-            padding: 2.5rem;
-            /* 40px */
-            border-radius: 0.75rem;
-            /* 12px */
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            /* shadow-lg */
-            background-color: white;
             width: 100%;
-            max-width: 28rem;
-            /* 448px */
-            margin: 1rem;
+            max-width: 28rem; /* 448px */
         }
 
-        h1 {
-            color: #111827;
-            margin-bottom: 0.5rem;
-            font-size: 1.875rem;
+        .card {
+            background-color: #fff;
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            padding: 2rem;
+        }
+        
+        @media (min-width: 768px) {
+            .card {
+                padding: 3rem;
+            }
         }
 
-        p {
-            color: #4b5563;
-            margin-top: 0;
+        /* Cabecera */
+        .card-header {
+            text-align: center;
             margin-bottom: 2rem;
         }
+        .card-header h1 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #1e293b;
+            letter-spacing: -0.025em;
+            margin: 0;
+        }
+        .card-header p {
+            color: #64748b;
+            margin-top: 0.5rem;
+            margin-bottom: 0;
+        }
 
-        input[type="password"] {
-            padding: 0.75rem;
-            /* 12px */
-            font-size: 1.25rem;
-            /* 20px */
-            width: 80%;
-            max-width: 250px;
+        /* Reloj */
+        .clock {
             text-align: center;
-            margin-bottom: 1.5rem;
-            border: 1px solid #d1d5db;
-            border-radius: 0.5rem;
-            /* 8px */
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-
-        input[type="password"]:focus {
-            outline: none;
-            border-color: var(--color-primary);
-            box-shadow: 0 0 0 3px var(--color-primary-light);
-            /* Anillo de foco tipo Tailwind */
-        }
-
-        button {
-            padding: 0.75rem 1.5rem;
-            /* 12px 24px */
-            font-size: 1rem;
-            /* 16px */
-            font-weight: 600;
-            color: white;
-            background-color: var(--color-primary);
-            border: none;
-            border-radius: 0.5rem;
-            /* 8px */
-            cursor: pointer;
-            transition: background-color 0.2s;
-            width: 80%;
-            max-width: 250px;
-        }
-
-        button:hover {
-            background-color: #007C6C;
-            /* Versión más oscura del primario */
-        }
-
-        .messages {
-            list-style: none;
-            padding: 0;
-            margin-top: 1.5rem;
-        }
-
-        .messages li {
+            margin-bottom: 2rem;
+            background-color: #f1f5f9;
             padding: 1rem;
             border-radius: 0.5rem;
-            margin-bottom: 1rem;
-            font-weight: 500;
+        }
+        .clock .time {
+            font-size: 2.25rem;
+            font-weight: 600;
+            color: #334155;
+            margin: 0;
+        }
+        .clock .date {
+            color: #64748b;
+            margin-top: 0.25rem;
+            margin-bottom: 0;
         }
 
-        .messages .success {
-            background-color: var(--bg-success);
-            color: var(--color-success);
+        /* Formulario */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
         }
 
-        .messages .error {
-            background-color: var(--bg-error);
-            color: var(--color-error);
+        .pin-input {
+            text-align: center;
+            font-size: 2.25rem;
+            letter-spacing: 0.5em;
+            width: 100%;
+            padding: 1rem;
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.5rem;
+            transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+            box-sizing: border-box;
+        }
+        .pin-input:focus {
+            outline: none;
+            background-color: #fff;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px var(--color-primary-light);
+        }
+        /* Oculta flechas en input de tipo numérico */
+        .pin-input::-webkit-inner-spin-button, 
+        .pin-input::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        .pin-input {
+            -moz-appearance: textfield;
         }
 
-        .messages .warning {
-            background-color: var(--bg-warning);
-            color: var(--color-warning);
+        .submit-btn {
+            width: 100%;
+            color: #fff;
+            font-weight: 700;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-size: 1.125rem;
+            background-color: var(--color-primary);
+            border: none;
+            cursor: pointer;
+            transition: background-color 200ms;
+        }
+        .submit-btn:hover {
+            background-color: var(--color-primary-hover);
         }
 
-        .admin-link {
-            display: inline-block;
+        /* Mensajes de Django */
+        .messages-container {
             margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .alert-message {
+            padding: 1rem;
+            border-radius: 0.5rem;
             font-size: 0.875rem;
+            font-weight: 500;
+            animation: fadeIn 0.5s ease-out forwards;
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out, margin-bottom 0.5s ease-out, padding 0.5s ease-out;
+        }
+        .alert-message.success {
+            background-color: #f0fdf4;
+            color: #15803d;
+        }
+        .alert-message.error {
+            background-color: #fef2f2;
+            color: #b91c1c;
+        }
+        .alert-message.warning {
+            background-color: #fefce8;
+            color: #a16207;
+        }
+
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(-10px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        
+        /* Enlace de administración */
+        .admin-link-container {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        .admin-link {
+            font-size: 0.875rem;
+            font-weight: 500;
             color: var(--color-primary);
             text-decoration: none;
-            transition: text-decoration 0.2s;
+            transition: text-decoration 150ms;
         }
+        .admin-link:hover {
+            text-decoration: underline;
+        }
+
     </style>
 </head>
 
 <body>
+
     <div class="container">
-        <h1>Control de Asistencia</h1>
-        <p>Ingrese su PIN para registrar su entrada o salida.</p>
+        
+        <div class="card">
+            
+            <header class="card-header">
+                <h1>Control de Asistencia</h1>
+                <p>Introduce tu PIN para registrar la entrada o salida.</p>
+            </header>
 
-        <form method="post" action="{% url 'fichaje' %}">
-            {% csrf_token %}
-            <input type="password" name="pin" required autofocus autocomplete="off" inputmode="numeric" pattern="[0-9]*"
-                placeholder="Ingrese su PIN">
-            <br>
-            <button type="submit">Fichar</button>
-        </form>
+            <div class="clock">
+                <p id="time" class="time"></p>
+                <p id="date" class="date"></p>
+            </div>
 
-        {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <li class="{{ message.tags }}">{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
+            <form method="post" action="{% url 'fichaje' %}">
+                {% csrf_token %}
+                <input type="password" name="pin" id="pinInput" required autofocus autocomplete="off" inputmode="numeric" pattern="\d*" class="pin-input">
+                <button type="submit" class="submit-btn">Registrar Fichaje</button>
+            </form>
 
-        <!-- acceso administrativo -->
-        <div>
-            <a class="admin-link" href="{% url 'admin:index' %}">Ir al panel administrativo</a>
+            {% if messages %}
+            <div class="messages-container">
+                {% for message in messages %}
+                <div class="alert-message {{ message.tags }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+        </div>
+
+        <div class="admin-link-container">
+            <a href="{% url 'admin:index' %}" class="admin-link">
+                Ir al panel administrativo
+            </a>
         </div>
     </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const timeElement = document.getElementById('time');
+            const dateElement = document.getElementById('date');
+            
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            timeElement.textContent = `${hours}:${minutes}:${seconds}`;
+            
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            dateElement.textContent = now.toLocaleDateString('es-ES', options);
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            updateClock();
+            setInterval(updateClock, 1000);
+
+            const pinInput = document.getElementById('pinInput');
+            
+            function keepFocusOnPinInput() {
+                if (document.activeElement !== pinInput) {
+                    pinInput.focus();
+                }
+            }
+            
+            document.body.addEventListener('click', (event) => {
+                if (event.target.tagName.toLowerCase() !== 'a' && event.target.tagName.toLowerCase() !== 'button') {
+                    keepFocusOnPinInput();
+                }
+            });
+
+            window.addEventListener('focus', keepFocusOnPinInput);
+            
+            // Ocultar mensajes automáticamente después de 4 segundos
+            const messages = document.querySelectorAll('.alert-message');
+            messages.forEach(message => {
+                setTimeout(() => {
+                    message.style.opacity = '0';
+                    message.style.transform = 'translateY(-20px)';
+                    message.style.marginBottom = '-1rem'; // Colapsar margen
+                    message.style.paddingTop = '0';
+                    message.style.paddingBottom = '0';
+                    
+                    // Eliminar el elemento del DOM después de que termine la animación
+                    setTimeout(() => {
+                        message.remove();
+                    }, 500); // Duración de la transición en CSS
+                }, 4000); 
+            });
+        });
+    </script>
 </body>
 
 </html>
+

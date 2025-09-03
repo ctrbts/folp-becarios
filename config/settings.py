@@ -30,6 +30,9 @@ if ENVIRONMENT == "production":
 else:
     ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
+# IPs permitidas
+ALLOWED_IPS = os.environ.get("ALLOWED_IPS", "").split(",")
+
 # Application definition
 
 INSTALLED_APPS = [
