@@ -1,9 +1,7 @@
 # fichajes/models.py
 
 from django.db import models
-from usuarios.models import (
-    Becario,
-)  # Asegúrate de que la importación coincida con tu estructura
+from becarios.models import Becario
 
 
 class Marcacion(models.Model):

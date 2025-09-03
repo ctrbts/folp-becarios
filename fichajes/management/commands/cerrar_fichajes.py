@@ -1,9 +1,9 @@
 # fichajes/management/commands/cerrar_fichajes.py
 
 """
-Ejecutar el cierre de fichajes todos los días de Lunes a Viernes a las 20:01
+Ejecutar el cierre de fichajes todos los días de Lunes a Viernes a las 23:01
 En un servidor Linux, puedes agregar la siguiente línea a tu crontab con 'crontab -e':
-1 20 * * 1-5 /ruta/a/tu/entorno/virtual/bin/python /ruta/a/tu/proyecto/manage.py cerrar_fichajes
+1 23 * * 1-5 /ruta/a/tu/entorno/virtual/bin/python /ruta/a/tu/proyecto/manage.py cerrar_fichajes
 """
 
 import datetime
@@ -15,7 +15,7 @@ from fichajes.models import Marcacion
 class Command(BaseCommand):
     """
     Comando de Django para cerrar automáticamente las marcaciones que quedaron abiertas.
-    Busca fichajes sin hora de salida y les asigna las 19:00 hs del día de entrada.
+    Busca fichajes sin hora de salida y les asigna las 22:59 hs del día de entrada.
     """
 
     help = (
@@ -40,10 +40,10 @@ class Command(BaseCommand):
         )
 
         for marcacion in marcaciones_pendientes:
-            # Creamos un objeto datetime para la hora de cierre: 19:00 hs del día de la entrada.
+            # Creamos un objeto datetime para la hora de cierre: 22:59 hs del día de la entrada.
             hora_cierre = timezone.make_aware(
                 datetime.datetime.combine(
-                    marcacion.entrada.date(), datetime.time(19, 0)
+                    marcacion.entrada.date(), datetime.time(22, 59)
                 )
             )
 

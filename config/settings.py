@@ -1,22 +1,15 @@
 # config/settings.py
 
 import os
+import dj_database_url
 from pathlib import Path
 from dotenv import load_dotenv
-import dj_database_url
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Carga el archivo .env
+# Load environment variables from .env file
 load_dotenv(BASE_DIR / ".env")
-
-# Lee la variable DJANGO_ENV. Si no existe, asume que es 'development'.
-ENVIRONMENT = os.environ.get("DJANGO_ENV", "development")
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
@@ -24,21 +17,15 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DJANGO_DEBUG", "False").lower() == "true"
 
-# En desarrollo, permitimos localhost. En producción, lee del .env.
-if ENVIRONMENT == "production":
-    ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "").split(",")
-else:
-    ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+# Allowed hosts
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "").split(",")
 
-# IPs permitidas
-ALLOWED_IPS = os.environ.get("ALLOWED_IPS", "").split(",")
 
 # Application definition
 
 INSTALLED_APPS = [
-    "core",
-    "usuarios",
     "fichajes",
+    "becarios",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -55,7 +42,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    #"core.middleware.IPRestrictionMiddleware",
+    "fichajes.middleware.IPRestrictionMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -67,6 +54,7 @@ TEMPLATES = [
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
+                "django.template.context_processors.debug",
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
@@ -79,17 +67,17 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 
 # Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
     "default": dj_database_url.config(
         default=f'sqlite:///{BASE_DIR / "db.sqlite3"}', conn_max_age=600
-    )
+    )    
 }
 
 
 # Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
+# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -108,7 +96,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
+# https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 LANGUAGE_CODE = "es-ES"
 
@@ -120,22 +108,13 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
+# https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
-
-# La carpeta donde 'collectstatic' reunirá todos los archivos para producción.
-# Se creará una carpeta llamada 'staticfiles' en la raíz de tu proyecto.
 STATIC_ROOT = BASE_DIR / "staticfiles"
-
-# Lista de carpetas donde Django buscará archivos estáticos adicionales
-# (además de la carpeta 'static' de cada app).
-# Aquí es donde ponemos nuestro CSS personalizado para Jazzmin.
-STATICFILES_DIRS = [
-    BASE_DIR / "core" / "static",
-]
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
+# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

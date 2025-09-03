@@ -1,9 +1,9 @@
-# config/urls.py
+# URL configuration for config project.
 
 from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("core.urls")),  # Rutas de la app core
+    path("", include("fichajes.urls")),
 ]
