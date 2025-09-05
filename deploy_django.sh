@@ -64,9 +64,9 @@ sudo apt install -y python3-venv python3-pip nginx git postgresql postgresql-con
 
 # --- CONFIGURACIÓN DEL FIREWALL (UFW) ---
 echo ">>> Configurando el firewall..."
-ufw allow OpenSSH
-ufw allow 'Nginx Full'
-ufw --force enable
+sudo ufw allow OpenSSH
+sudo ufw allow 'Nginx Full'
+sudo ufw --force enable
 
 echo "### 2/4 - Configurando la Base de Datos PostgreSQL... ###"
 
@@ -85,7 +85,7 @@ echo "### 3/4 - Configurando Servicios (Gunicorn y Nginx)... ###"
 # --- CREACIÓN DEL ARCHIVO DE SERVICIO DE GUNICORN ---
 echo ">>> Creando el archivo de servicio de Gunicorn..."
 # La directiva cat <<EOF > ... crea un archivo con el contenido que sigue
-cat <<EOF > /etc/systemd/system/gunicorn.service
+sudo cat <<EOF > /etc/systemd/system/gunicorn.service
 [Unit]
 Description=gunicorn daemon for $PROJECT_NAME
 After=network.target
@@ -104,7 +104,7 @@ EOF
 
 # --- CREACIÓN DE LA CONFIGURACIÓN DE NGINX ---
 echo ">>> Creando el archivo de configuración de Nginx..."
-cat <<EOF > /etc/nginx/sites-available/$PROJECT_NAME
+sudo cat <<EOF > /etc/nginx/sites-available/$PROJECT_NAME
 server {
     listen 80;
     server_name $DOMAIN_NAME www.$DOMAIN_NAME;
@@ -129,15 +129,15 @@ EOF
 
 # --- ACTIVACIÓN DE NGINX Y REINICIO DE SERVICIOS ---
 echo ">>> Activando el sitio de Nginx..."
-rm -f /etc/nginx/sites-enabled/default
-ln -sf /etc/nginx/sites-available/$PROJECT_NAME /etc/nginx/sites-enabled/
+sudo rm -f /etc/nginx/sites-enabled/default
+sudo ln -sf /etc/nginx/sites-available/$PROJECT_NAME /etc/nginx/sites-enabled/
 
 # Verifica la sintaxis antes de reiniciar
-nginx -t
+sudo nginx -t
 
 # Reinicia los servicios para aplicar todos los cambios
-systemctl restart nginx
-systemctl daemon-reload
+sudo systemctl restart nginx
+sudo systemctl daemon-reload
 
 echo "### 4/4 - ¡Aprovisionamiento del servidor completado! ###"
 echo ""
