@@ -58,9 +58,9 @@ echo "### 1/4 - Iniciando Aprovisionamiento del Servidor Django... ###"
 
 # --- INSTALACIÓN DE DEPENDENCIAS DEL SISTEMA ---
 echo ">>> Actualizando e instalando paquetes del sistema (Python, Nginx, PostgreSQL)..."
-apt-get update
-apt-get upgrade -y
-apt-get install -y python3-venv python3-pip nginx git postgresql postgresql-contrib
+sudo apt update
+sudo apt upgrade -y
+sudo apt install -y python3-venv python3-pip nginx git postgresql postgresql-contrib
 
 # --- CONFIGURACIÓN DEL FIREWALL (UFW) ---
 echo ">>> Configurando el firewall..."
